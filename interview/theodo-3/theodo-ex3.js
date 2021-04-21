@@ -9,6 +9,7 @@ const dir = [
 ];
 
 function solution(A) {
+  // Calculate the target position
   const endPos = [A[0].length - 1, A.length - 1];
 
   // Start bottom right (the end)
@@ -26,14 +27,15 @@ function solution(A) {
  *
  * todo: store best value for each node in a map
  *
- * @param {*} A
- * @param {*} pos
- * @param {*} remain
- * @param {*} total
- * @param {*} path
+ * @param {*} A - Board
+ * @param {*} pos - Current Position
+ * @param {*} remain - How many moves remain
+ * @param {*} total - Total from pos -> end
+ * @param {*} path - current path taken ([[pos], ..., [end]])
  */
 function scoreOf(A, pos, remain, total, path) {
-  if (remain == 0) map.set(total, path);
+  // If we used the correct number && we are at the start (otherwise incomplete)
+  if (remain == 0 && pos[0] == 0 && pos[1] == 0) map.set(total, path);
 
   // console.log(
   //   `pos: [${pos}] rem: ${remain} total: ${total} path: ${printPath(path)}`
@@ -53,6 +55,7 @@ function scoreOf(A, pos, remain, total, path) {
     var newPath = [...path];
     newPath.unshift(po.pos);
 
+    // Recursively check the next possible origin position
     scoreOf(A, po.pos, remain - 1, total + A[po.pos[0]][po.pos[1]], newPath);
   });
 }
@@ -65,4 +68,5 @@ const A = [
   [4, 1, 2, 2],
 ];
 
+// Output
 console.log(solution(A));
