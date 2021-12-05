@@ -1,4 +1,4 @@
-import { readInputs } from "../../../utils/file";
+import { readInputs } from "../../../../utils/file";
 
 export const day2 = (directions: SubmarineDirection[]) => {
   const [horizontal, vertical] = directions.reduce(

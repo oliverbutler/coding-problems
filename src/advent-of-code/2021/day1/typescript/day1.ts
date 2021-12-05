@@ -1,4 +1,4 @@
-import { readInputs } from "../../../utils/file";
+import { readInputs } from "../../../../utils/file";
 
 export const numberTimesIncreasing = (numbers: number[]): number => {
   let count = 0;

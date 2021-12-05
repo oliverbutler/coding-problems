@@ -1,4 +1,4 @@
-import { logAnswer } from "../../../utils/logging";
+import { logAnswer } from "../../../../utils/logging";
 import { day2, day2part2, day2test, day2data } from "./day2";
 
 describe("day2 part 1", () => {

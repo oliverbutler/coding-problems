@@ -1,4 +1,4 @@
-import { logAnswer } from "../../../utils/logging";
+import { logAnswer } from "../../../../utils/logging";
 import {
   data,
   exampleData,
