@@ -1,15 +1,8 @@
 {
   "scripts": {
     "test": "jest --watchAll ",
-    "test:all": "jest",
-    "compile": "tsc",
-    "day": "scripts/newDay.sh",
-    "part2": "scripts/partTwo.sh"
+    "test:all": "jest"
   },
-  "name": "advent-of-code-typescript-starter",
-  "version": "1.0.0",
-  "main": "index.js",
-  "author": "https://github.com/bpiggin",
   "license": "MIT",
   "dependencies": {
     "jest": "^27.3.1",
