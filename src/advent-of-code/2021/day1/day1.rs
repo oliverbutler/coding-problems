@@ -6,3 +6,4 @@ fn main() {
   println!("{}", contents)
   panic()
 }
+

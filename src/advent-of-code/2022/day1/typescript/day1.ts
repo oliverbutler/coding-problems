@@ -1,7 +1,6 @@
-import { readInputs } from "../../../../utils/file";
+import { readInputs } from '../../../../utils/file';
 
-const getElfsWithWeights  = (weights: number[]) => {
-
+const getElfsWithWeights = (weights: number[]) => {
   // Group them splitting by "NaN" (the separator)
   const elfs: number[] = [0];
 
@@ -21,26 +20,20 @@ const getElfsWithWeights  = (weights: number[]) => {
 };
 
 export const getTopElfFromWeights = (weights: number[]): number => {
-
   const elfs = getElfsWithWeights(weights);
 
   return Math.max(...elfs);
-
-}
+};
 
 export const getTop3ElfsFromWeights = (weights: number[]): number => {
+  const elfs = getElfsWithWeights(weights);
 
-    const elfs = getElfsWithWeights(weights);
+  const top3 = elfs.sort((a, b) => b - a).slice(0, 3);
 
-    const top3 = elfs.sort((a, b) => b - a).slice(0, 3);
-
-    return top3.reduce((a, b) => a + b, 0);
-
-}
-
-
+  return top3.reduce((a, b) => a + b, 0);
+};
 
 const { dataRaw, testRaw } = readInputs(__dirname);
 
-export const data = dataRaw.split("\n").map((x) => parseInt(x));
-export const exampleData = testRaw.split("\n").map((x) => parseInt(x));
+export const data = dataRaw.split('\n').map((x) => parseInt(x));
+export const exampleData = testRaw.split('\n').map((x) => parseInt(x));

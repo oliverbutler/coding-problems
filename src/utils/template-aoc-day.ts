@@ -31,6 +31,8 @@ const dayFolder = join(__dirname, `../advent-of-code/${year}/day${day}`)
 // Target Files
 const dayFile = join(dayFolder, `./typescript/day${day}.ts`)
 const testFile = join(dayFolder, `./typescript/day${day}.test.ts`)
+const rustFile = join(dayFolder, `./rust/src/day${day}.rs`)
+const rustCargo = join(dayFolder, `./rust/Cargo.toml`)
 const testInputFile = join(dayFolder, `./test.txt`)
 const inputFile = join(dayFolder, `./input.txt`)
 const readmeFile = join(dayFolder, `./README.md`)
@@ -38,8 +40,8 @@ const readmeFile = join(dayFolder, `./README.md`)
 // Make the day folder if it doesn't exist
 fs.mkdirSync(dayFolder,)
 
-// make the typescript folder
 fs.mkdirSync(join(dayFolder, `./typescript`))
+fs.mkdirSync(join(dayFolder, `./rust`))
 
 // Make the emptyDayFile
 
@@ -84,6 +86,25 @@ describe("Day ${day}", () => {
   });
 });
 
+`)
+
+fs.writeFileSync(rustFile, `
+use std::fs;
+
+fn main() {
+  // read in test.txt
+  let input = fs::read_to_string("../test.txt").expect("Unable to read file");
+
+}
+`)
+
+fs.writeFileSync(rustCargo, `
+[package]
+name = "rust"
+version = "0.1.0"
+edition = "2021"
+
+[dependencies]
 `)
 
 // Create the test input file
