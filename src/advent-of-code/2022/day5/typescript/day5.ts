@@ -1,25 +1,9 @@
 import { readAndFormatInputs } from '../../../../utils/file';
 
-const executeMoveCommandOneByOne = (
+const executeMoveCommand = (
   command: typeof data['moveCommands'][0],
-  stacks: string[][]
-) => {
-  const deepCopyStacks: string[][] = JSON.parse(JSON.stringify(stacks));
-
-  for (let i = 0; i < command.num; i++) {
-    const popped = deepCopyStacks[command.from].pop();
-
-    if (popped !== undefined) {
-      deepCopyStacks[command.to].push(popped);
-    }
-  }
-
-  return deepCopyStacks;
-};
-
-const executeMoveCommandRetainOrder = (
-  command: typeof data['moveCommands'][0],
-  stacks: string[][]
+  stacks: string[][],
+  retainOrder: boolean
 ) => {
   const deepCopyStacks: string[][] = JSON.parse(JSON.stringify(stacks));
 
@@ -35,7 +19,7 @@ const executeMoveCommandRetainOrder = (
 
   deepCopyStacks[command.to] = [
     ...deepCopyStacks[command.to],
-    ...pickedUp.reverse(),
+    ...(retainOrder ? pickedUp.reverse() : pickedUp),
   ];
 
   return deepCopyStacks;
@@ -43,7 +27,7 @@ const executeMoveCommandRetainOrder = (
 
 export const step1 = (rawData: typeof data) => {
   const newStacks = rawData.moveCommands.reduce((acc, command) => {
-    return executeMoveCommandOneByOne(command, acc);
+    return executeMoveCommand(command, acc, false);
   }, rawData.stacks);
 
   return newStacks.reduce((acc, stack) => {
@@ -53,7 +37,7 @@ export const step1 = (rawData: typeof data) => {
 
 export const step2 = (rawData: typeof data) => {
   const newStacks = rawData.moveCommands.reduce((acc, command) => {
-    return executeMoveCommandRetainOrder(command, acc);
+    return executeMoveCommand(command, acc, true);
   }, rawData.stacks);
 
   return newStacks.reduce((acc, stack) => {
