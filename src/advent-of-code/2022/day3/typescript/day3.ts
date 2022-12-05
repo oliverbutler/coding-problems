@@ -5,74 +5,42 @@ const splitStringInHalf = (str: string): [string, string] => {
   return [str.slice(0, half), str.slice(half)];
 };
 
-const findCommonCharacters = (str1: string, str2: string): string => {
-  const commonCharacters = [];
+const commonCharsInStrings = (...strings: string[]): string => {
+  const sets = strings.map((str) => new Set(str.split('')));
 
-  for (let i = 0; i < str1.length; i++) {
-    if (str2.includes(str1[i])) {
-      commonCharacters.push(str1[i]);
-    }
-  }
+  const commonChars = sets.reduce((acc, set) => {
+    return new Set([...acc].filter((char) => set.has(char)));
+  });
 
-  return commonCharacters.join('');
+  return [...commonChars].join('');
 };
 
-// Lowercase item types a through z have priorities 1 through 26.
-// Uppercase item types A through Z have priorities 27 through 52.
-
 export const getPriority = (item: string): number => {
-  const code = item.charCodeAt(0);
-
-  if (code >= 65 && code <= 90) {
-    return code - 38;
-  }
-
-  if (code >= 97 && code <= 122) {
-    return code - 96;
-  }
-
-  throw new Error(`Invalid item: ${item}`);
+  return item === item.toLowerCase()
+    ? item.charCodeAt(0) - 96
+    : item.charCodeAt(0) - 38;
 };
 
 export const step1 = (rawData: typeof data) => {
-  const data = rawData.slice(0, rawData.length - 1);
+  return rawData
+    .slice(0, rawData.length - 1)
+    .map((line) => {
+      const [leftHalf, rightHalf] = splitStringInHalf(line);
 
-  const result = data.map((line) => {
-    const [leftHalf, rightHalf] = splitStringInHalf(line);
-
-    const commonCharacters = findCommonCharacters(leftHalf, rightHalf);
-
-    return commonCharacters;
-  });
-
-  const lettersWeCareAbout = result.map((common) => common[0]);
-
-  const sumPriorities = lettersWeCareAbout.reduce(
-    (sum, letter) => sum + getPriority(letter),
-    0
-  );
-
-  return sumPriorities;
+      return commonCharsInStrings(leftHalf, rightHalf)[0];
+    })
+    .reduce((sum, letter) => sum + getPriority(letter), 0);
 };
 
 export const step2 = (rawData: typeof data) => {
-  const data = rawData.slice(0, rawData.length - 1);
-  const commonChars = [];
+  return rawData.slice(0, rawData.length - 1).reduce((sum, _, i, arr) => {
+    if (i % 3 === 0) {
+      const common = commonCharsInStrings(...arr.slice(i, i + 3));
+      return sum + getPriority(common[0]);
+    }
 
-  for (let i = 0; i < data.length; i += 3) {
-    const string1 = data[i];
-    const string2 = data[i + 1];
-    const string3 = data[i + 2];
-
-    const commonBetween1And2 = findCommonCharacters(string1, string2);
-    const commonBetween2And3 = findCommonCharacters(string2, string3);
-
-    const common = findCommonCharacters(commonBetween1And2, commonBetween2And3);
-
-    commonChars.push(common[0]);
-  }
-
-  return commonChars.reduce((sum, letter) => sum + getPriority(letter), 0);
+    return sum;
+  }, 0);
 };
 
 const { dataRaw, testRaw } = readInputs(__dirname);
