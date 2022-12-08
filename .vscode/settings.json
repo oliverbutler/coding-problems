@@ -9,6 +9,5 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/.ipynb_checkpoints": true
-  },
-  "wolf.disableHotModeWarning": true
+  }
 }

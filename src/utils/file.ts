@@ -1,12 +1,12 @@
-import {readFileSync} from "fs";
-import * as path from "path";
+import { readFileSync } from 'fs';
+import * as path from 'path';
 
-export const readInputs = (
+export const readRawInputs = (
   currDir: string
 ): { dataRaw: string; testRaw: string } => {
   return {
-    dataRaw: readFileSync(path.resolve(currDir, "../input.txt"), "utf-8"),
-    testRaw: readFileSync(path.resolve(currDir, "../test.txt"), "utf-8"),
+    dataRaw: readFileSync(path.resolve(currDir, '../input.txt'), 'utf-8'),
+    testRaw: readFileSync(path.resolve(currDir, '../test.txt'), 'utf-8'),
   };
 };
 
@@ -17,9 +17,9 @@ export const readAndFormatInputs = <T>(
   data: T;
   testData: T;
 } => {
-  const {dataRaw, testRaw} = readInputs(currDir);
+  const { dataRaw, testRaw } = readRawInputs(currDir);
   return {
     data: format(dataRaw),
     testData: format(testRaw),
   };
-}
+};

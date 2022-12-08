@@ -1,4 +1,4 @@
-import { readInputs } from '../../../../utils/file';
+import { readRawInputs } from '../../../../utils/file';
 
 // .2345678.  2-8
 // ..34567..  3-7
@@ -71,7 +71,7 @@ export const step2 = (rawData: typeof data) => {
   return rangesWhereTheresAnOverlap.length;
 };
 
-const { dataRaw, testRaw } = readInputs(__dirname);
+const { dataRaw, testRaw } = readRawInputs(__dirname);
 
 export const data = dataRaw.split('\n').map((x) => x.split(','));
 export const exampleData = testRaw.split('\n').map((x) => x.split(','));

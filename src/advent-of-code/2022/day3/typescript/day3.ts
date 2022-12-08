@@ -1,4 +1,4 @@
-import { readInputs } from '../../../../utils/file';
+import { readRawInputs } from '../../../../utils/file';
 
 const splitStringInHalf = (str: string): [string, string] => {
   const half = Math.floor(str.length / 2);
@@ -43,7 +43,7 @@ export const step2 = (rawData: typeof data) => {
   }, 0);
 };
 
-const { dataRaw, testRaw } = readInputs(__dirname);
+const { dataRaw, testRaw } = readRawInputs(__dirname);
 
 export const data = dataRaw.split('\n').map((x) => x);
 export const exampleData = testRaw.split('\n').map((x) => x);

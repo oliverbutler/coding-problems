@@ -1,4 +1,4 @@
-import { readInputs } from "../../../../utils/file";
+import { readRawInputs } from '../../../../utils/file';
 
 export const numberTimesIncreasing = (numbers: number[]): number => {
   let count = 0;
@@ -19,7 +19,7 @@ export const numberTimesIncreasingThreeAverage = (
   return numberTimesIncreasing(sums);
 };
 
-const { dataRaw, testRaw } = readInputs(__dirname);
+const { dataRaw, testRaw } = readRawInputs(__dirname);
 
-export const data = dataRaw.split("\n").map((x) => parseInt(x));
-export const exampleData = testRaw.split("\n").map((x) => parseInt(x));
+export const data = dataRaw.split('\n').map((x) => parseInt(x));
+export const exampleData = testRaw.split('\n').map((x) => parseInt(x));
