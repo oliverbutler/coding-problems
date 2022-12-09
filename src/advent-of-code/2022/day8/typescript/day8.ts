@@ -1,4 +1,10 @@
-import { readAndFormatInputs } from '../../../../utils/file';
+import { readAndFormatInputs } from '../../../../utils/deno-file.ts';
+
+const __dirname = new URL('.', import.meta.url).pathname;
+
+const { data, testData } = readAndFormatInputs(__dirname, (data) =>
+  data.split('\n').map((x) => x.split('').map((y) => parseInt(y, 10)))
+);
 
 export const step1 = (rawData: typeof data) => {
   const heightMap: Record<string, boolean> = {};
@@ -103,7 +109,7 @@ export const step2 = (rawData: typeof data) => {
   return Object.values(heightMap).reduce((acc, x) => Math.max(acc, x), 0);
 };
 
-const { data, testData } = readAndFormatInputs(__dirname, (data) =>
-  data.split('\n').map((x) => x.split('').map((y) => parseInt(y, 10)))
-);
-export { data, testData };
+console.assert(step1(testData) === 8, 'Step 1 test failed');
+
+console.log('Step 1: test=' + step1(testData) + ' data=' + step1(data));
+console.log('Step 2: test=' + step2(testData) + ' data=' + step2(data));

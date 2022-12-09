@@ -9,5 +9,11 @@
     "**/.DS_Store": true,
     "**/Thumbs.db": true,
     "**/.ipynb_checkpoints": true
-  }
+  },
+  "deno.enablePaths": [
+    "src/utils/deno-file.ts",
+    "src/advent-of-code/2022/day8/typescript/day8.ts",
+    "src/advent-of-code/2022/day9/typescript/day9.ts",
+    "src/advent-of-code/2022/day9/typescript/renderCoordinates.ts"
+  ]
 }

@@ -29,7 +29,6 @@ const dayFolder = join(__dirname, `../advent-of-code/${year}/day${day}`);
 
 // Target Files
 const dayFile = join(dayFolder, `./typescript/day${day}.ts`);
-const testFile = join(dayFolder, `./typescript/day${day}.test.ts`);
 const rustFile = join(dayFolder, `./rust/src/day${day}.rs`);
 const rustCargo = join(dayFolder, `./rust/Cargo.toml`);
 const testInputFile = join(dayFolder, `./test.txt`);
@@ -49,7 +48,9 @@ fs.mkdirSync(join(dayFolder, `./rust/src`));
 fs.writeFileSync(
   dayFile,
   `
-import {readAndFormatInputs} from "../../../../utils/file";
+  import { readAndFormatInputs } from '../../../../utils/deno-file.ts';
+
+  const __dirname = new URL('.', import.meta.url).pathname;
 
 export const step1 = (rawData: typeof data) => {
 
@@ -60,37 +61,9 @@ export const step2 = (rawData: typeof data) => {
 
 };
 
-const {data, testData} = readAndFormatInputs(__dirname, (data) => data.split("\\n").map((x) => x));
-export {data, testData};
 
-`
-);
-
-// Create the test file
-fs.writeFileSync(
-  testFile,
-  `
-import {step1, step2, testData, data} from "./day${day}";
-
-describe("Day ${day}", () => {
-  describe("Step 1", () => {
-    it("should work with the example data", () => {
-      expect(step1(testData)).toEqual(0);
-    });
-    it("should work with the real data", () => {
-      expect(step1(data)).toEqual(0);
-    });
-  });
-  describe("Step 2", () => {
-    it("should work with the example data", () => {
-      expect(step2(testData)).toEqual(0);
-    });
-    it("should work with the real data", () => {
-      expect(step2(data)).toEqual(0);
-    });
-  });
-});
-
+console.log("Step 1: test=" + step1(testData) + " data=" + step1(data));
+console.log("Step 2: test=" + step2(testData) + " data=" + step2(data));
 `
 );
 
@@ -129,7 +102,7 @@ fs.writeFileSync(inputFile, ``);
 fs.writeFileSync(readmeFile, `# Day ${day}`);
 
 // Run prettier against dayX and dayX's tests, exclude the input/test files
-execSync(`prettier -w ${dayFile} ${testFile}`);
+execSync(`prettier -w ${dayFile} `);
 
 // Fetch the question from the AoC website
 const dayPage = execSync(
